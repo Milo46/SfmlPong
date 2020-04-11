@@ -1,1 +1,0 @@
-To get working application just move directory called 'resources' to 'executable'
