@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BUTTON_H
+#define BUTTON_H
 
 #include "Textbox.h"
 
@@ -35,3 +36,5 @@ namespace Pong
         void update(const sf::Vector2f& mousePos);
     };
 }
+
+#endif

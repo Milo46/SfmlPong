@@ -18,12 +18,19 @@ namespace Pong
                               sf::Vector2f(this->stateData->window->getSize().x, 60.f),
                               this->font, "Pong", 100, sf::Color::Black);
 
-        this->buttons["Start"] = new Button(sf::Vector2f(300.f, 180.f),
+        /*this->buttons["Start"] = new Button(sf::Vector2f(300.f, 180.f),
                                             sf::Vector2f(200.f, 40.f),
                                             this->font, "Start", 26, temp);
         this->buttons["Exit"] = new Button(sf::Vector2f(300.f, 240.f),
                                            sf::Vector2f(200.f, 40.f),
-                                           this->font, "Exit", 26, temp);
+                                           this->font, "Exit", 26, temp);*/
+
+        sf::Vector2f temp_button_size(200.f, 40.f);
+
+        this->buttons["Start"] = new Button(sf::Vector2f(this->stateData->window->getSize().x / 2 - temp_button_size.x / 2, 180),
+                                            temp_button_size, this->font, "Start", 26, temp);
+        this->buttons["Exit"] = new Button(sf::Vector2f(this->stateData->window->getSize().x / 2 - temp_button_size.x / 2, 240),
+                                           temp_button_size, this->font, "Exit", 26, temp);
     }
 
     MainMenuState::~MainMenuState()
@@ -68,7 +75,7 @@ namespace Pong
         }
     }
 
-    void MainMenuState::render(sf::RenderWindow* window)
+    void MainMenuState::render()
     {
         this->title.render(this->stateData->window);
         for (const auto& it : this->buttons)

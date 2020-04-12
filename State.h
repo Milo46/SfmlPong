@@ -1,6 +1,7 @@
-#pragma once
+#ifndef STATE_H
+#define STATE_H
 
-#include "Button.h"
+#include "Ball.h"
 
 namespace Pong
 {
@@ -35,7 +36,9 @@ namespace Pong
         void endState();
 
         virtual void update(const float& dt) = 0;
-        virtual void render(sf::RenderWindow* window = NULL) = 0;
+        virtual void render() = 0;
 
     };
 }
+
+#endif

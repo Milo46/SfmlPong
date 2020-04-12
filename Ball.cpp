@@ -35,9 +35,6 @@ namespace Pong
 
         this->setup = true;
         this->timer = Timer(this->ballData->targetTimerTime);
-
-        this->pointsCounter = PointsCounter();
-        this->pointsCounter.render();
     }
 
     Ball::~Ball()
@@ -80,10 +77,14 @@ namespace Pong
         return false;
     }
 
-    void Ball::update(const float& dt, Paddle& left, Paddle& right)
+    int Ball::update(const float& dt, Paddle& left, Paddle& right)
     {
+
         if (this->timer.status() == TimerStatus::Off)
         {
+            bool left_scored = false;
+            bool right_scored = false;
+
             float factor = this->velocity * dt;
             this->shape.move(sf::Vector2f(cos(this->angle) * factor * this->mltX, sin(this->angle) * factor * this->mltY));
 
@@ -91,18 +92,14 @@ namespace Pong
             {
                 this->reset();
                 this->setup = true;
-
-                this->pointsCounter.incrementRight();
-                this->pointsCounter.render();
+                right_scored = true;
             }
 
             if (this->shape.getPosition().x >= right.getPosition().x + right.getSize().x / 2)
             {
                 this->reset();
                 this->setup = true;
-
-                this->pointsCounter.incrementLeft();
-                this->pointsCounter.render();
+                left_scored = true;
             }
 
             if (this->isOutFromUpperBorder())
@@ -166,6 +163,9 @@ namespace Pong
 
                 this->shape.setPosition(sf::Vector2f(right.getPosition().x - right.getSize().x / 2 - right.getOutlineThickness() - this->shape.getOutlineThickness() - this->shape.getSize().x / 2 - 1.f, this->shape.getPosition().y));
             }
+
+            if (left_scored) return -1;
+            if (right_scored) return 1;
         }
         else
         {
@@ -177,6 +177,8 @@ namespace Pong
             this->timer.start();
             this->setup = false;
         }
+
+        return 0;
     }
 
     void Ball::render(sf::RenderTarget* target)

@@ -6,11 +6,11 @@ namespace Pong
     {
         this->shape = sf::RectangleShape(size);
         this->shape.setPosition(position);
-        this->shape.setFillColor(color);
+        this->shape.setFillColor(sf::Color(color.r, color.g, color.b, 0));
 
         this->font = font;
         this->text.setFont(*this->font);
-        this->text.setFillColor(sf::Color::White);
+        this->text.setFillColor(sf::Color(255, 255, 255));
 
         this->text.setCharacterSize(textSize);
         this->text.setScale(sf::Vector2f(0.5f, 0.5f));
@@ -43,9 +43,9 @@ namespace Pong
         this->shape.setFillColor(color);
     }
 
-    void Textbox::render(sf::RenderWindow* window)
+    void Textbox::render(sf::RenderTarget* target)
     {
-        window->draw(this->shape);
-        window->draw(this->text);
+        target->draw(this->shape);
+        target->draw(this->text);
     }
 }

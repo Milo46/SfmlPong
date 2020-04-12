@@ -8,7 +8,8 @@ namespace Pong
         this->left_paddleData = PaddleData();
         this->left_paddleData.windowSize = static_cast<sf::Vector2f>(this->stateData->window->getSize());
         this->left_paddleData.paddleHeight = 40.f;
-        this->left_paddleData.velocity = 1000.f;
+        //this->left_paddleData.paddleHeight = 80.f;
+        this->left_paddleData.velocity = 850.f;
         this->left_paddleData.side = PaddlePosition::Left;
         std::map<PaddleKeybinds, sf::Keyboard::Key> left_keybinds;
         left_keybinds[PaddleKeybinds::Up] = sf::Keyboard::Q;
@@ -19,7 +20,8 @@ namespace Pong
         this->right_paddleData = PaddleData();
         this->right_paddleData.windowSize = static_cast<sf::Vector2f>(this->stateData->window->getSize());
         this->right_paddleData.paddleHeight = 40.f;
-        this->right_paddleData.velocity = 1000.f;
+        //this->right_paddleData.paddleHeight = 80.f;
+        this->right_paddleData.velocity = 850.f;
         this->right_paddleData.side = PaddlePosition::Right;
         std::map<PaddleKeybinds, sf::Keyboard::Key> right_keybinds;
         right_keybinds[PaddleKeybinds::Up] = sf::Keyboard::Up;
@@ -32,12 +34,22 @@ namespace Pong
 
         this->ballData = BallData();
         this->ballData.sideSize = 4.f;
-        this->ballData.velocity = 500.f;
+        this->ballData.velocity = 550.f;
+        //this->ballData.velocity = 450.f;
         this->ballData.maxBounceAngle = (50 * pi) / 180;
         this->ballData.windowSize = static_cast<sf::Vector2f>(this->stateData->window->getSize());
         this->ballData.targetTimerTime = 2.f;
 
         this->ball = Ball(&this->ballData);
+
+        //this->scoreboard = PointsCounter(static_cast<sf::Vector2f>(this->stateData->window->getSize()));
+        this->font = sf::Font();
+        this->font.loadFromFile("resources/OpenSans-Bold.ttf");
+
+        this->scoreboard = Textbox(sf::Vector2f(0, 30), sf::Vector2f(this->stateData->window->getSize().x, 0),
+                                   &this->font, "0 : 0", 60, sf::Color::Black);
+        this->left_points = 0;
+        this->right_points = 0;
     }
 
     GameState::~GameState()
@@ -53,13 +65,27 @@ namespace Pong
         }
         this->left_paddle.update(dt);
         this->right_paddle.update(dt);
-        this->ball.update(dt, this->left_paddle, this->right_paddle);
+        int result = this->ball.update(dt, this->left_paddle, this->right_paddle);
+
+        if (result != 0)
+        {
+            if (result == -1) this->left_points++;
+            if (result == 1) this->right_points++;
+
+            std::string text = "";
+            text += std::to_string(this->left_points);
+            text += " : ";
+            text += std::to_string(this->right_points);
+
+            this->scoreboard.setText(text);
+        }
     }
 
-    void GameState::render(sf::RenderWindow* window)
+    void GameState::render()
     {
         this->left_paddle.render(this->stateData->window);
         this->right_paddle.render(this->stateData->window);
         this->ball.render(this->stateData->window);
+        this->scoreboard.render(this->stateData->window);
     }
 }

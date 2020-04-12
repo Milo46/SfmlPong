@@ -1,4 +1,7 @@
-#pragma once
+#ifndef TIMER_H
+#define TIMER_H
+
+#include "PointsCounter.h"
 
 namespace Pong
 {
@@ -30,3 +33,5 @@ namespace Pong
         void update(const float& dt);
     };
 }
+
+#endif

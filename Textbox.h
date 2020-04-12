@@ -1,6 +1,7 @@
-#pragma once
+#ifndef TEXTBOX_H
+#define TEXTBOX_H
 
-#include "Ball.h"
+#include "Paddle.h"
 
 namespace Pong
 {
@@ -22,7 +23,9 @@ namespace Pong
         void setText(const std::string& text);
         void setFillColor(const sf::Color& color);
 
-        void render(sf::RenderWindow* window);
+        void render(sf::RenderTarget* target);
 
     };
 }
+
+#endif

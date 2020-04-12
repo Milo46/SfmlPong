@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MAINMENUSTATE_H
+#define MAINMENUSTATE_H
 
 #include "GameState.h"
 
@@ -19,6 +20,8 @@ namespace Pong
         virtual ~MainMenuState();
 
         void update(const float& dt);
-        void render(sf::RenderWindow* window = NULL);
+        void render();
     };
 }
+
+#endif

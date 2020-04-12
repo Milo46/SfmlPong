@@ -1,13 +1,14 @@
-#pragma once
+#ifndef PADDLE_H
+#define PADDLE_H
 
 #include "SFML/Graphics.hpp"
 
 #include <iostream>
-#include <vector>
-#include <string>
-#include <cmath>
-#include <ctime>
 #include <stack>
+#include <ctime>
+#include <cmath>
+#include <string>
+#include <vector>
 #include <map>
 
 namespace Pong
@@ -72,3 +73,5 @@ namespace Pong
 		void render(sf::RenderTarget* target);
 	};
 }
+
+#endif

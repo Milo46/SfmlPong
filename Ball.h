@@ -1,8 +1,7 @@
-#pragma once
+#ifndef BALL_H
+#define BALL_H
 
-#include "Paddle.h"
 #include "Timer.h"
-#include "PointsCounter.h"
 
 namespace Pong
 {
@@ -38,8 +37,6 @@ namespace Pong
         bool setup;
         Timer timer;
 
-        PointsCounter pointsCounter;
-
     public:
         Ball();
         Ball(BallData* ballData);
@@ -54,7 +51,14 @@ namespace Pong
 
         //bool isScore(Paddle& left, Paddle& right);
 
-        void update(const float& dt, Paddle& left, Paddle& right);
+        /* Ball::update() returns one of these values: {-1, 0, 1}, which means:
+            (-1): left paddle gained point in this frame
+            (0): nobody gained point in this frame
+            (1): right paddle gained point in this frame
+        */
+        int update(const float& dt, Paddle& left, Paddle& right);
         void render(sf::RenderTarget* target);
     };
 }
+
+#endif

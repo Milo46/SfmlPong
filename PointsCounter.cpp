@@ -4,8 +4,16 @@ namespace Pong
 {
     PointsCounter::PointsCounter()
     {
-        this->left = 0;
-        this->right = 0;
+        this->font = sf::Font();
+        this->textbox = Textbox();
+    }
+
+    PointsCounter::PointsCounter(const sf::Vector2f& windowSize)
+    {
+        this->font = sf::Font();
+        this->font.loadFromFile("resources/OpenSans-Bold.ttf");
+        this->textbox = Textbox(sf::Vector2f(0, 0), sf::Vector2f(windowSize.x, 100),
+                                &this->font, "Example", 40, sf::Color::Black);
     }
 
     PointsCounter::~PointsCounter()
@@ -13,24 +21,8 @@ namespace Pong
 
     }
 
-    void PointsCounter::incrementLeft()
+    void PointsCounter::render(sf::RenderTarget* target)
     {
-        this->left++;
-    }
-
-    void PointsCounter::incrementRight()
-    {
-        this->right++;
-    }
-
-    void PointsCounter::reset()
-    {
-        this->left = 0;
-        this->right = 0;
-    }
-
-    void PointsCounter::render()
-    {
-        std::cout << this->left << " : " << this->right << std::endl;
+        this->textbox.render(target);
     }
 }

@@ -1,23 +1,23 @@
-#pragma once
+#ifndef POINTSCOUNTER_H
+#define POINTSCOUNTER_H
 
-#include <iostream>
+#include "Button.h"
 
 namespace Pong
 {
     class PointsCounter
     {
     private:
-        int left, right;
+        sf::Font font;
+        Textbox textbox;
 
     public:
         PointsCounter();
+        PointsCounter(const sf::Vector2f& windowSize);
         virtual ~PointsCounter();
 
-        void incrementLeft();
-        void incrementRight();
-
-        void reset();
-
-        void render();
+        void render(sf::RenderTarget* target);
     };
 }
+
+#endif

@@ -63,7 +63,7 @@ namespace Pong
 
     Game::Game()
     {
-        this->window = new sf::RenderWindow(sf::VideoMode(800, 600), "SFML Pong");
+        this->window = new sf::RenderWindow(sf::VideoMode(800, 600), "SFML Pong", sf::Style::Fullscreen);
         this->window->setKeyRepeatEnabled(false);
 
         this->stateData.window = this->window;

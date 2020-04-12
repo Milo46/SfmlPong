@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GAMESTATE_H
+#define GAMESTATE_H
 
 #include "State.h"
 
@@ -15,12 +16,20 @@ namespace Pong
         BallData ballData;
         Ball ball;
 
+        //Group of variables which are scoreboard,
+        //it's not a one class because I'm having an issue
+        sf::Font font;
+        Textbox scoreboard;
+        int left_points, right_points;
+
     public:
         GameState(StateData* state_data);
         virtual ~GameState();
 
         void update(const float& dt);
-        void render(sf::RenderWindow* window = nullptr);
+        void render();
 
     };
 }
+
+#endif
